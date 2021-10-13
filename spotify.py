@@ -26,7 +26,11 @@ def get_song_data(artist_id, access_token):
 		params={"market": MARKET}
 	)
     json_response = response.json()
-    track_json = random.choice(json_response["tracks"])  # choose random track
+    try:
+	    track_json = random.choice(json_response["tracks"])
+    except KeyError:
+	    return False
+
     song_name = track_json["name"]
     song_artist = ", ".join([artist["name"] for artist in track_json["artists"]])
     song_image_url = track_json["album"]["images"][0]["url"]

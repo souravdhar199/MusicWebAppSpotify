@@ -1,45 +1,137 @@
+from enum import unique
+from operator import ifloordiv
 import flask
+from flask.helpers import flash, url_for
+import flask_login
+from flask.templating import render_template
+from flask_login import login_manager
+from flask_login.utils import login_required, login_user
 import requests
+from flask import request
 import os
 import random
 import base64
 from dotenv import load_dotenv, find_dotenv
+from werkzeug.utils import redirect
 load_dotenv(find_dotenv())
 from genius import get_lyrics_link
 from spotify import get_access_token, get_song_data
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin
+from collections import defaultdict
+
 
 app = flask.Flask(__name__)
+#set up the database part1
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'super secret key'
 
 
-MARKET = "US"
-ARTIST_IDS = [
-	"4UXqAaa6dQYAk18Lv7PEgX",  # FOB
-	"3jOstUTkEu2JkjvRdBA5Gu",  # Weezer
-	"7oPftvlwr6VrsViSDV7fJY",  # Green Day
-]
+db = SQLAlchemy(app)
+#database setup part1 done
+#Now creating a table for my database 
 
-@app.route('/')
+#Now lets work with login maneger
+login_manager=LoginManager()
+login_manager.init_app(app)
+
+class Userdata(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    userEmail = db.Column(db.String(100), unique=False)
+    artistId = db.Column(db.String(300), unique=False)
+  
+db.create_all() #table created in the databas  done
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Userdata.query.get(int(user_id))
+
+
+#this main route will have log in page
+@app.route('/', methods=["GET", "POST"])
 def index():
-	artist_id = random.choice(ARTIST_IDS)
+    if flask.request.method=="POST":
+        email = flask.request.form.get('email')
+        find_user=Userdata.query.filter_by(userEmail=email).first()
+        if find_user: #if user already logged in then it will take them to the home page
+            login_user(find_user)
+            return redirect(url_for("home", em=email))#also pass the email
+        else:
+            # flash("no data")
+            return redirect(url_for('signup'))
 
-	# API calls
-	access_token = get_access_token()
-	(song_name, song_artist, song_image_url, preview_url) = get_song_data(artist_id, access_token)
-	genius_url = get_lyrics_link(song_name)
+    return flask.render_template("index.html")
 
 
-	return flask.render_template(
-    	"index.html",
-    	song_name=song_name,
+@app.route('/signup', methods=["GET", "POST"])
+def signup():
+    if flask.request.method=="POST":  
+        email = flask.request.form.get('email')
+        find_user=Userdata.query.filter_by(userEmail=email).first()
+        if find_user: #if user try to signup for existing loginemail it will take them to the log in form
+            return redirect(url_for("index"))
+
+        else: #else it will store user email to database and take them back to log in form
+            data1=Userdata(userEmail=email, artistId="None")
+            db.session.add(data1)
+            db.session.commit()
+            return redirect(url_for("index"))
+    return flask.render_template("signup.html")
+
+#NOW LETS GET ALL THE DATA FROM OUR DATABAS AND MAP userEmail with artistId
+
+
+
+
+
+@app.route('/<em>', methods=["POST","GET"])
+def home(em): 
+    # now we can get all the fav artist id by their email
+    access_token = get_access_token()
+    if flask.request.method=="POST":  
+        id = flask.request.form.get('id')
+        data1=Userdata(userEmail=em, artistId=id)
+        if get_song_data(id, access_token)==False:
+            data="Wrong artist id"
+            return render_template("homepage.html", data=data)
+        db.session.add(data1)
+        db.session.commit()
+
+    access_token = get_access_token()
+    emailandKeys = Userdata.query.all() 
+    graph = defaultdict(list)
+    for c in emailandKeys:
+        if c.artistId=="None" and c.userEmail not in graph:
+            graph[c.userEmail]=[]
+            continue
+        graph[c.userEmail].append(c.artistId)
+    
+    fav = graph.get(em)
+    if len(fav)==0:
+        data="you dont have save data"
+        return render_template("homepage.html", data=data)
+
+
+    print(fav)
+    artist_id=random.choice(fav)
+
+    (song_name, song_artist, song_image_url, preview_url) = get_song_data(artist_id, access_token)
+    genius_url = get_lyrics_link(song_name)
+ 
+    return flask.render_template(
+        "homepage.html",
+        song_name=song_name,
     	song_artist=song_artist,
     	song_image_url=song_image_url,
     	preview_url=preview_url,
     	genius_url=genius_url
+        
     )
 
+
+
 if __name__ == "__main__":
-	app.run(
-		host=os.getenv('IP', '0.0.0.0'),
-		port=int(os.getenv('PORT', 8080)),
-		debug=True
-	)
+    app.run(
+debug=True
+    )
