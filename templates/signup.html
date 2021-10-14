@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='login.css' ) }} />
+
 </head>
+
 <body>
-	<div>
-		<p>Sign up</p>
-		<form method="POST">
-			<input type="text" name="email">
-			<input type="submit" name="submit">
-		</form>
+
+	<div class="parent">
+		<div class="formcontainer">
+			<p class="info">Sign up</p>
+			<form method="POST" class="form">
+				<input class="input" type="text" name="email">
+				<input class="submit" type="submit" name="Sign in" value="Sign up">
+			</form>
+		</div>
+		<p class="dis">Alredy have account with us?</p>
+		<a class="submit" href="{{url_for('index')}}">Log in</a>
 	</div>
-	
-	
+
+
+
 </body>
+
 </html>

@@ -6,37 +6,71 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='home.css' ) }} />
+
 </head>
 
 <body>
-	<div>
-		<p>Scearch songs by Singer artist id</p>
-		<form method="POST" action="#">
-			<input type="text" name="id">
-			<input type="submit" name="ok">
-		</form>
+	<div class="parent">
+		<div class="formcontainer">
+			<p class="info">Look up songs by Singer artist id</p>
+			<form method="POST" action="#" class="form">
+				<input class="input" type="text" name="id">
+				<input class="submit" type="submit" name="ok">
+			</form>
+
+		</div>
+
 
 	</div>
+
 
 
 
 	{% if data %}
-	<p>{{data}}</p>
+	<div class="else">
+		<p>{{data}}</p>
+	</div>
+
+
+	{% else %}
+
+	<div class="container">
+		<div class="tracks">
+			<div class="picalbum">
+				<img src="{{song_image_url}}" alt="">
+			</div>
+			<p class="artistname">{{song_artist}} </p>
+			<p class="artistname">{{song_name}} </p>
+			<audio class="audio" controls src="{{preview_url}}"></audio>
+			<div class="lyrics-parent">
+				<a class="lyrics" , href="{{genius_url}}">LYRICS</a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+
 	{% endif %}
 
 
-	<h1>Your songs</h1>
-	<h2>{{song_name}}</h2>
-	<h3>{{song_artist}}</h3>
-	<div>
-		<img src="{{song_image_url}}" width=300 height=300 />
-	</div>
-	<div>
-		<audio controls>
-			<source src={{preview_url}} />
-		</audio>
-	</div>
-	<a href="{{genius_url}}"> Click here to see lyrics! </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

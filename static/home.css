@@ -1,0 +1,183 @@
+*{
+    margin: 0rem 0rem;
+    box-sizing: border-box;
+ 
+}
+
+html{
+    font-size: 80%;
+}
+
+.parent{
+    text-align: center;
+    padding-top: 10rem;
+    
+ 
+}
+
+.info{
+    padding-top: 4rem;
+    color: #8C55AA;
+    font-weight: bold;
+    font-size: 2.3rem;
+   
+}
+
+.input{
+    width:  20rem;
+    color: rgb(38, 50, 56);
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2rem;
+    outline: none;
+    box-sizing: border-box;
+    border: .2rem solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 5rem;
+    margin-left: 4rem;
+    text-align: center;
+    margin-bottom: 2.7rem;
+}
+.form{
+    padding-top: 1rem;
+    
+    align-items: center;
+   
+}
+.submit{
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    font-size: 1rem;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    
+    
+
+}
+
+.dp{
+    width: 20rem;
+    height: 20rem;
+    margin-bottom: 2rem;
+   
+
+}
+
+h1{
+    text-align: center;
+    border-radius: 50%;
+}
+
+
+.dp img{
+border-radius: 50%;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.intro{
+    margin-top:5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+
+  
+}
+
+.else{
+    
+    text-align: center;
+}
+
+.else p{
+    padding-top: 4rem;
+    color: #8C55AA;
+    font-weight: bold;
+    font-size: 2.3rem;
+}
+.introContainer{
+    max-width: 50%;
+}
+
+.container{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    row-gap: 1fr;
+
+    
+}
+
+.tracks{
+    border: black solid;
+    max-width: 30rem;
+    padding: 2rem;
+    margin: 2rem;
+
+   
+}
+
+.audio{
+
+    width: 15rem;
+
+}
+
+
+.NA{
+  border: gray solid;
+  border-radius: 20rem;
+  padding: .7rem;
+  text-align: center;
+  width: 15rem;
+}
+
+.picalbum{
+   width: 15rem;
+ 
+}
+
+.artistname{
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 15rem;
+
+   
+}
+
+.lyrics-parent{
+    margin-top: 1rem;
+    text-align: center;
+    border:rgb(107, 107, 98) solid;
+    border-radius: 20rem;
+  padding: .7rem;
+}
+
+.lyrics{
+    text-decoration: none;
+    color: orange;
+}
+
+@media screen and (max-width: 690px) {
+    html{
+        font-size: 60%
+    };
+  }
+
+  
+@media screen and (max-width: 500px) {
+    html{
+        font-size: 50%
+    };
+  }

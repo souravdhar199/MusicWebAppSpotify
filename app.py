@@ -123,7 +123,7 @@ def home(em):
 
     fav = graph.get(em)
     if len(fav) == 0:
-        data = "you dont have save data"
+        data = "You dont have save data please put your fav artist ID"
         return render_template("homepage.html", data=data)
 
     # Now no matter what we are going to have uniq artist id
@@ -150,5 +150,6 @@ def home(em):
 
 if __name__ == "__main__":
     app.run(
-        host=os.getenv("IP", "127.0.0.1"), port=int(os.getenv("PORT", 8080)), debug=True
+        # host=os.getenv("IP", "127.0.0.1"), port=int(os.getenv("PORT", 8080)),
+        debug=True
     )
