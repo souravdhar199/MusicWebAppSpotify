@@ -10,9 +10,9 @@ import os
 import random
 import base64
 from dotenv import load_dotenv, find_dotenv
-from werkzeug.utils import redirect
 
 load_dotenv(find_dotenv())
+from werkzeug.utils import redirect
 from genius import get_lyrics_link
 from spotify import get_access_token, get_song_data
 from flask_sqlalchemy import SQLAlchemy
