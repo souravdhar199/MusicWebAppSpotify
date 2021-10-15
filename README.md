@@ -12,7 +12,7 @@
 4. 
 
 # URL 
-[https://dashboard.heroku.com/apps/project2music]
+[https://project2music.herokuapp.com/]
 
 
 ## Technical Issues :
