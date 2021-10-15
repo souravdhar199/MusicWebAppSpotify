@@ -18,7 +18,6 @@ from spotify import get_access_token, get_song_data
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
 from collections import defaultdict
-import numpy as np
 
 
 app = flask.Flask(__name__)
