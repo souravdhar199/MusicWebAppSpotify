@@ -140,7 +140,7 @@ def home(em):
         artist_id, access_token
     )
     genius_url = get_lyrics_link(song_name)
-
+    db.session.close_all()
     return flask.render_template(
         "homepage.html",
         song_name=song_name,
