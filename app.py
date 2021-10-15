@@ -43,6 +43,7 @@ class Userdata(db.Model, UserMixin):
     artistId = db.Column(db.String(300), unique=False)
 
 
+db.drop_all()
 db.create_all()  # table created in the databas  done
 
 
