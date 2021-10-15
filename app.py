@@ -2,11 +2,9 @@ from enum import unique
 from operator import ifloordiv
 import flask
 from flask.helpers import flash, url_for
-import flask_login
 from flask.templating import render_template
 from flask_login import login_manager
 from flask_login.utils import login_required, login_user
-import requests
 from flask import request
 import os
 import random
