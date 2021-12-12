@@ -8,8 +8,7 @@
 1. In order to fork this repo you must have python flask install in your dev tools.
       Intsallation instruction : [https://flask.palletsprojects.com/en/2.0.x/]
 2. In order to install lyricsgenius 3.0.1 follow ths link [https://pypi.org/project/lyricsgenius/]
-3. https://www.postgresql.org/download/ IF you are developing locally you need to download postgresql
-4. 
+3. https://www.postgresql.org/download/ if you are developing locally you need to download postgresql
 
 # URL 
 [https://project2music.herokuapp.com/]
